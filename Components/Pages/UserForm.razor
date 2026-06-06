@@ -1,5 +1,52 @@
-﻿<h3>UserForm</h3>
+﻿@page "/userform"
+
+<h3>User Form</h3>
+
+<EditForm Model="@user" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    
+    <div>
+        <label>First Name</label><br />
+        <InputText @bind-Value="user.FirstName" />
+        <ValidationMessage For="@(() => user.FirstName)" />
+    </div>
+
+    <br />
+
+
+    <div>
+        <label>Last Name</label><br />
+        <InputText @bind-Value="user.LastName" />
+        <ValidationMessage For="@(() => user.LastName)" />
+    </div>
+
+    <br />
+
+
+    <div>
+        <label>Email</label><br />
+        <InputText @bind-Value="user.Email" />
+        <ValidationMessage For="@(() => user.Email)" />
+    </div>
+
+    <br />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <p style="color:green">@successMessage</p>
+}
 
 @code {
+    private User user = new User();
+    private string successMessage;
 
+    private void HandleValidSubmit()
+    {
+        successMessage = "Form submitted successfully!";
+    }
 }
